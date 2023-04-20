@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="rentDAO">
+<!-- SQL 문장을 관리하는 파일
+	- namespace : 맵퍼파일끼리 구분하는 이름, 다른 Mapper파일과 이름 중복 안됩니다.
+	- <select> <insert> <update> <delete> 등 쿼리문에 대한 태그가 존재
+	- 태그들에게 id를 부여하여 외부에서 호출할떄 "맵퍼이름.id" 로 탐색
+	<select id="" >
+ -->
+ 	<!-- 
+ 		parameterType=""	: 쿼리 문장을 실행할때 외부로부터 받은 필요한 데이터
+ 		resultType="		: 쿼리 문장을 실행할때 출력되는 결과데이터
+ 	-->
+ 	<select id="getMovieList" parameterType="com.human.java.RentVO" resultType="com.human.java.RentVO">
+ 		SELECT * 
+ 		FROM rentTb 
+ 		<where>
+	 		<if test="rentTitle != null">
+	 			AND rentTitle = #{rentTitle}
+	 		</if> 		
+	 		<if test="rentDirector != null">
+	 			AND rentDirector = #{rentDirector}
+	 		</if>
+ 		</where>
+ 		ORDER BY rentId
+ 	</select>
+</mapper>
